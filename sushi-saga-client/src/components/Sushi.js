@@ -1,23 +1,36 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
-const Sushi = (props) => {
-  return (
-    <div className="sushi">
-      <div className="plate" 
-           onClick={/* Give me a callback! */ null}>
-        { 
-          /* Tell me if this sushi has been eaten! */ 
-          true ?
-            null
-          :
-            <img src={/* Give me an image source! */} width="100%" />
-        }
+class Sushi extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      eaten: false
+    }
+  }
+  render(){
+    return (
+      <div className="sushi">
+        <div className="plate"
+           onClick={this.handleClick}>
+           {this.state.eaten
+            ? null
+            : <img src={this.props.img_url} width="100%" />
+          }
+        </div>
+        <h4 className="sushi-details">
+          {this.props.name} - ${this.props.price}
+        </h4>
       </div>
-      <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
-      </h4>
-    </div>
-  )
+    )
+  }
+  handleClick = (e) => {
+    console.log(e.target)
+    this.setState({eaten: true})
+    // gotta pass a callback up to decrease the user's money
+    // and have to be able to read that amount of money here
+
+    // I think we can keep these from re-appearing with "shouldComponentUpdate"
+  }
 }
 
 export default Sushi
